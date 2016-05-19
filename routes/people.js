@@ -45,8 +45,37 @@ router.get('/new/', function(req, res) {
 
 /* POST registra uma nova pessoa */
 // IMPLEMENTAR AQUI
+router.post('/', function(req, res){
+console.log('lalalal');
+});
+
 
 /* DELETE uma pessoa */
 // IMPLEMENTAR AQUI
+/*
+router.delete('/:idDoCara', function(req, res){
+  db.query('DELETE FROM person' +
+            'WHERE id = ' + db.escape(req.params.idDoCara),
+    function(err, result) {
+      if (err) {
+        req.flash('error', 'Nao ha pessoa para ser removida');
+      } else {
+        req.flash('success', 'A pessoa foi removida.');
+      }
+      res.redirect('/');
+    });
+});*/
+
+router.delete('/:id', function(req, res) {
+  var id = db.escape(req.params.id);
+  var query = 'DELETE FROM person WHERE id = ' + id;
+  db.query(query, function(err, result) {
+    if (err)  {
+      res.send(401, 'A pessoa nao existe!');
+    }else {
+      res.redirect('/');
+    }
+  });
+});
 
 module.exports = router;
