@@ -46,7 +46,15 @@ router.get('/new/', function(req, res) {
 /* POST registra uma nova pessoa */
 // IMPLEMENTAR AQUI
 router.post('/', function(req, res){
-console.log('lalalal');
+    var name = db.escape(req.body.name);
+    var query = 'INSERT INTO person (name) VALUES (' + name + ');'
+    db.query(query, function(err, result) {
+      if (err)  {
+        res.send(401, 'Falha ao inserir!');
+      }else {
+        res.redirect('/');
+      }
+    });
 });
 
 
